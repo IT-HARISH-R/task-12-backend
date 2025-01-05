@@ -92,7 +92,7 @@ const userController = {
                 from: 'youremail@gmail.com',
                 to: email,
                 subject: 'Reset Password',
-                text: `http://localhost:5173/reset-password/${token}`
+                text: `https://task12-password-reset.netlify.app/reset-password/${token}`
             };
 
             transporter.sendMail(mailOptions, function (error, info) {
@@ -122,20 +122,6 @@ const userController = {
 
         }
     },
-    me: async (request, response) => {
-        try {
-            const userid = request.userid;
-
-            const user = await User.findById(userid).select('-password -created_at -updated_at -__v');
-            if (!user) {
-                return response.status(500).json({ message: "Invalid token" })
-            }
-            response.json(user)
-        }
-        catch (error) {
-            response.status(500).json(error)
-        }
-    }
 
 }
 
